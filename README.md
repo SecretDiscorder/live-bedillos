@@ -20,7 +20,7 @@ f. Buat folder baru di dalam root folder > mkdir /root/live-bedillos
 __1 - Perintah pertama adalah mengunduh dan menyiapkan sistem minimal Ubuntu dengan debootstrap__
 
 __---Jangan di jalankan jika kamu unduh archive.zip---__
-
+```
 
 sudo debootstrap \
    
@@ -33,52 +33,52 @@ sudo debootstrap \
    $HOME/live-bedillos/chroot \
 
    http://us.archive.ubuntu.com/ubuntu/
-
+```
 
 
 __2 - Memasang sistem file dev dan run ke dalam lingkungan chroot agar perangkat keras dapat diakses__
-
+```
 
 sudo mount --bind /dev $HOME/live-bedillos/chroot/dev
 
 
 sudo mount --bind /run $HOME/live-bedillos/chroot/run
 
-
+```
 
 __3 - Masuk ke lingkungan chroot untuk mulai mengkonfigurasi sistem__
 
-
+```
 sudo chroot $HOME/live-bedillos/chroot
 
-
+```
 
 __4 - Memasang beberapa sistem file virtual yang diperlukan untuk menjalankan sistem Linux di dalam chroot__
-
+```
 mount none -t proc /proc
 
 mount none -t sysfs /sys
 
 mount none -t devpts /dev/pts
 
-
+```
 
 __5 - Mengatur variabel lingkungan__
-
+```
 export HOME=/root
 
 export LC_ALL=C
-
+```
 
 
 __6 - Mengubah nama host untuk sistem yang sedang dibangun__
-
+```
 echo "bedillos" > /etc/hostname
-
+```
 
 
 __7 - Menambahkan daftar repositori untuk apt__
-
+```
 cat <<EOF > /etc/apt/sources.list
 
 deb http://us.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
@@ -94,35 +94,35 @@ deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe
 deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
 
 EOF
-
+```
 
 
 __8 - Memperbarui daftar paket dan menginstal beberapa paket dasar__
-
+```
 sudo apt update
 
 apt-get install -y libterm-readline-gnu-perl systemd-sysv
 
-
+```
 
 __9 - Mengatur ID mesin dan mengonfigurasi dbus__
-
+```
 dbus-uuidgen > /etc/machine-id
 
 ln -fs /etc/machine-id /var/lib/dbus/machine-id
 
-
+```
 
 __10 - Mengalihkan initctl untuk memastikan sistem dapat berjalan tanpa masalah__
-
+```
 dpkg-divert --local --rename --add /sbin/initctl
 
 ln -s /bin/true /sbin/initctl
 
-
+```
 
 __11 - Melakukan upgrade sistem dan menginstal beberapa paket tambahan__
-
+```
 apt-get -y upgrade
 
 apt-get install -y \
@@ -166,12 +166,12 @@ apt-get install -y \
    mtools \
 
    binutils
-
+```
 
 
 
 __12 - Menginstal paket untuk installer Ubuntu__
-
+```
 apt-get install -y \
 
    ubiquity \
@@ -183,17 +183,17 @@ apt-get install -y \
    ubiquity-slideshow-ubuntu \
   
    ubiquity-ubuntu-artwork
-
+```
 
 
 __13 - Menginstal tema untuk splash screen__
-
+```
 apt-get install -y plymouth-themes
 
-
+```
 
 __14 - Menginstal beberapa aplikasi dan utilitas__
-
+```
 apt-get install -y \
 
    clamav-daemon \
@@ -209,24 +209,23 @@ apt-get install -y \
    nano \
 
    less
-
+```
 
 
 __15 - Memulai tool "tasksel" untuk memilih dan menginstal lingkungan desktop (Lubuntu)__
-
-tasksel ( Pilih Lubuntu pada menu tasksel (key LUBUNTU) )
-
+```
+tasksel 
+```
 
 
 __16 - Menginstal paket untuk LXDE dan lingkungan desktop ringan__
 
-____________________
+```
 apt-get install -y lxde-core openbox* lxpanel* pcmanfm lxsession* lxappearance* lxterminal lxrandr lxinput lximage-qt gpicview lightdm* xserver-xorg feh compton gnome-screenshot synaptic tasksel gedit network-manager network-manager-gnome ifupdown nmcli wicd net-tools inetutils-ping curl wget traceroute nmap dnsutils openssh-client openssh-server nano vim gedit pcmanfm thunar vlc mpv audacious ffmpeg firefox chromium-browser midori zip unzip tar gzip bzip2 xz-utils libreoffice evince catfish htop gparted gksu ufw rsync deja-dup
-____________________
-
+```
 
 __17 - Menginstal aplikasi tambahan seperti kdenlive dan phpmyadmin__
-
+```
 apt install kdenlive php php-mbstring libapache2-mod-php apache2 mariadb-server lxde
 
 apt install phpmyadmin firefox snapd snap 
@@ -234,31 +233,31 @@ apt install phpmyadmin firefox snapd snap
 apt install screenfetch blueman bluetooth* pulseaudio*bluetooth 
 
 
-
+```
 __18 - Menghapus sesi GNOME yang tidak diinginkan__
-
+```
 apt remove openbox-gnome-session 
 
-
+```
 
 __19 - Menghapus paket yang tidak diperlukan lagi__
-
+```
 apt autoremove
-
+```
 __20 - Menginstal alat pengembangan dan paket lain yang diperlukan__
-
+```
 apt install build-essential gdb lcov pkg-config libbz2-dev libffi-dev libgdbm-dev liblzma-dev libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev lzma lzma-dev tk-dev uuid-dev zlib1g-dev
-
+```
 __21 - Menginstal LibreOffice dan alat Python__
-
+```
 apt install libreoffice ant python3-pip python3-venv python3 
-
+```
 __22 - Menginstal Java__
-
+```
 apt-get install -y openjdk-8-jdk openjdk-8-jre
-
+```
 __23 - Mengonfigurasi NetworkManager__
-
+```
 dpkg-reconfigure locales
 
 cat <<EOF > /etc/NetworkManager/NetworkManager.conf
@@ -278,19 +277,19 @@ managed=false
 EOF
 
 dpkg-reconfigure network-manager
-
+```
 __24 - Membuat direktori untuk image ISO__
-
+```
 mkdir -p /image/{casper,isolinux,install}
-
+```
 __25 - Menyalin kernel dan initrd ke image ISO__
-
+```
 cp /boot/vmlinuz-**-**-generic /image/casper/vmlinuz
 
 cp /boot/initrd.img-**-**-generic /image/casper/initrd
-
+```
 __26 - Mengunduh dan menyiapkan memtest86+ untuk memeriksa RAM__
-
+```
 wget --progress=dot https://memtest.org/download/v7.00/mt86plus_7.00.binaries.zip -O /image/install/memtest86.zip
 
 unzip -p /image/install/memtest86.zip memtest64.bin > /image/install/memtest86+.bin
@@ -298,13 +297,13 @@ unzip -p /image/install/memtest86.zip memtest64.bin > /image/install/memtest86+.
 unzip -p /image/install/memtest86.zip memtest64.efi > /image/install/memtest86+.efi
 
 rm -f /image/install/memtest86.zip
-
+```
 __27 - Menambahkan file sistem informasi__
-
+```
 touch /image/ubuntu
-
+```
 __28 - Mengonfigurasi grub untuk memulai proses boot__
-
+```
 cat <<EOF > /image/isolinux/grub.cfg
 
 search --set=root --file /ubuntu
@@ -360,17 +359,17 @@ menuentry "Test memory Memtest86+ (BIOS)" {
 fi
 
 EOF
-
+```
 __29 - Membuat manifest untuk paket yang telah diinstal__
-
+```
 dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee /image/casper/filesystem.manifest
-
+```
 __30 - Menyalin manifest untuk desktop__
-
+```
 cp -v /image/casper/filesystem.manifest image/casper/filesystem.manifest-desktop
-
+```
 __31 - Menghapus beberapa entri yang tidak diperlukan dari manifest__
-
+```
 sed -i '/ubiquity/d' /image/casper/filesystem.manifest-desktop
 
 sed -i '/casper/d' /image/casper/filesystem.manifest-desktop
@@ -380,9 +379,9 @@ sed -i '/discover/d' /image/casper/filesystem.manifest-desktop
 sed -i '/laptop-detect/d' /image/casper/filesystem.manifest-desktop
 
 sed -i '/os-prober/d' /image/casper/filesystem.manifest-desktop
-
+```
 __32 - Menambahkan file README untuk definisi disk__
-
+```
 cat <<EOF > /image/README.diskdefines
 
 #define DISKNAME  Ubuntu from scratch
@@ -404,9 +403,9 @@ cat <<EOF > /image/README.diskdefines
 #define TOTALNUM0  1
 
 EOF
-
+```
 __33 - Menyalin file bootloader dan konfigurasi untuk ISO__
-
+```
 cd /image
 
 cp /usr/lib/shim/shimx64.efi.signed isolinux/bootx64.efi
@@ -414,10 +413,10 @@ cp /usr/lib/shim/shimx64.efi.signed isolinux/bootx64.efi
 cp /usr/lib/shim/mmx64.efi isolinux/mmx64.efi
 
 cp /usr/lib/grub/x86_64-efi-signed/grubx64.efi.signed isolinux/grubx64.efi
-
+```
 
 __34 - Pastekan Perintah ini di Terminal__
-
+```
 (
 
    cd isolinux && \
@@ -486,18 +485,18 @@ exit
 sudo umount $HOME/live-bedillos/chroot/dev
 
 sudo umount $HOME/live-bedillos/chroot/run
-
+```
 
 __35 - Pergi ke folder live-bedillos__
-
+```
 cd $HOME/live-bedillos
-
+```
 __36 - memindahkan folder komfigurasi image dari chroot ke live-bedillos__
-
+```
 sudo mv chroot/image .
-
+```
 __37 - Membuat Live File System untuk ISO File__
-
+```
 sudo mksquashfs chroot image/casper/filesystem.squashfs \
    
    -noappend -no-duplicates -no-recovery \
@@ -517,19 +516,19 @@ sudo mksquashfs chroot image/casper/filesystem.squashfs \
    -e "tmp/.*" \
    
    -e "swapfile"
-
+```
 __38 - Mencetak dan Menulis Output Chroot ke folder image/casper ke Filesystem.size__
-
+```
 printf $(sudo du -sx --block-size=1 chroot | cut -f1) | sudo tee image/casper/filesystem.size
-
+```
 
 __39 - Pergi ke Folder Image__
-
+```
 cd $HOME/live-bedillos/image
-
+```
 
 __40 - Menggunakan xorriso untuk membuat file ISO yang dapat boot__
-
+```
 sudo xorriso -as mkisofs -iso-level 3 -full-iso9660-filenames -J -J -joliet-long \
    
     -volid "Bedillos" -output "$HOME/live-bedillos/bedillos.iso" \
@@ -549,14 +548,14 @@ sudo xorriso -as mkisofs -iso-level 3 -full-iso9660-filenames -J -J -joliet-long
     "/EFI/boot/mmx64.efi=isolinux/mmx64.efi" "/EFI/boot/grubx64.efi=isolinux/grubx64.efi" \
     
     "/EFI/ubuntu/grub.cfg=isolinux/grub.cfg" .
-
+```
 __** 00 - Setelah proses pembuatan ISO selesai, Anda dapat keluar dari chroot__
-
+```
 exit
-
+```
 
 __40 - Alternatif proses pembuatan ISO dan file yang dapat dibooting.__
-
+```
 cat <<EOF> isolinux/isolinux.cfg
 UI vesamenu.c32
 
@@ -616,4 +615,4 @@ sudo xorriso \
  -append_partition 2 0xef EFI/boot/efiboot.img \
    "$HOME/live-ubuntu-from-scratch/image"
 
-
+```
