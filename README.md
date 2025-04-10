@@ -5,15 +5,15 @@ __Persyaratan__
 
 a. Gunakan Linux Debian / Ubuntu Untuk Menjalankan Perintah Ini 
 
-b. Install VirtualBox dan debootstrap > apt install debootstrap
+b. Install VirtualBox dan debootstrap > ```apt install debootstrap```
 
-c. Login root dengan perintah > sudo su
+c. Login root dengan perintah > ```sudo su```
 
 d. set HOME ke /root folder
 
-e. Install Dependensi yang diperlukan > apt install mkisofs xorriso
+e. Install Dependensi yang diperlukan > ```apt install mkisofs xorriso```
 
-f. Buat folder baru di dalam root folder > mkdir /root/live-bedillos
+f. Buat folder baru di dalam root folder > ```mkdir /root/live-bedillos```
 
 
 
