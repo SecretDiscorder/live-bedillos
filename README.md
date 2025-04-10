@@ -19,7 +19,9 @@ f. Buat folder baru di dalam root folder > ```mkdir /root/live-bedillos```
 
 __1 - Perintah pertama adalah mengunduh dan menyiapkan sistem minimal Ubuntu dengan debootstrap__
 
-__---Jangan di jalankan jika kamu unduh archive.zip (nb: check Releases Page ada live-bedillos.tar)---__
+- Jangan di jalankan jika kamu unduh archive.zip
+
+- (nb: check Releases Page ada live-bedillos.tar)
 ```
 
 sudo debootstrap \
