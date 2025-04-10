@@ -1,4 +1,4 @@
-# Langkah-Langkah Membangun Ubuntu Buatan Lokal "bedillOS" 
+# Langkah-Langkah Membangun Ubuntu Buatan Lokal "BedillOS" 
 
 __Persyaratan__
 
