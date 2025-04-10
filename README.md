@@ -19,8 +19,8 @@ f. Buat folder baru di dalam root folder > mkdir /root/live-bedillos
 
 __1 - Perintah pertama adalah mengunduh dan menyiapkan sistem minimal Ubuntu dengan debootstrap__
 
-___________________________________________________________
 __---Jangan di jalankan jika kamu unduh archive.zip---__
+___________________________________________________________
 
 sudo debootstrap \
    
@@ -33,8 +33,6 @@ sudo debootstrap \
    $HOME/live-bedillos/chroot \
 
    http://us.archive.ubuntu.com/ubuntu/
-
-__--------------------------\\\\\----------------------------__
 
 _______________________________________________________________
 
@@ -265,13 +263,19 @@ __23 - Mengonfigurasi NetworkManager__
 dpkg-reconfigure locales
 
 cat <<EOF > /etc/NetworkManager/NetworkManager.conf
+
 [main]
+
 rc-manager=none
+
 plugins=ifupdown,keyfile
+
 dns=systemd-resolved
 
 [ifupdown]
+
 managed=false
+
 EOF
 
 dpkg-reconfigure network-manager
@@ -303,35 +307,59 @@ touch /image/ubuntu
 __28 - Mengonfigurasi grub untuk memulai proses boot__
 
 cat <<EOF > /image/isolinux/grub.cfg
+
 search --set=root --file /ubuntu
+
 insmod all_video
+
 set default="0"
+
 set timeout=10
+
 menuentry "Try Ubuntu FS without installing" {
    linux /casper/vmlinuz boot=casper nopersistent toram quiet splash ---
    initrd /casper/initrd
 }
+
 menuentry "Install Ubuntu FS" {
+
    linux /casper/vmlinuz boot=casper quiet splash ---
+
    initrd /casper/initrd
 }
+
 menuentry "Check disc for defects" {
+   
    linux /casper/vmlinuz boot=casper integrity-check quiet splash ---
+   
    initrd /casper/initrd
 }
+
 grub_platform
+
 if [ "\$grub_platform" = "efi" ]; then
+
 menuentry 'UEFI Firmware Settings' {
+
    fwsetup
 }
+
 menuentry "Test memory Memtest86+ (UEFI)" {
+
    linux /install/memtest86+.efi
+
 }
+
 else
+
 menuentry "Test memory Memtest86+ (BIOS)" {
+
    linux16 /install/memtest86+.bin
+
 }
+
 fi
+
 EOF
 
 __29 - Membuat manifest untuk paket yang telah diinstal__
@@ -357,15 +385,25 @@ sed -i '/os-prober/d' /image/casper/filesystem.manifest-desktop
 __32 - Menambahkan file README untuk definisi disk__
 
 cat <<EOF > /image/README.diskdefines
+
 #define DISKNAME  Ubuntu from scratch
+
 #define TYPE  binary
+
 #define TYPEbinary  1
+
 #define ARCH  amd64
+
 #define ARCHamd64  1
+
 #define DISKNUM  1
+
 #define DISKNUM1  1
+
 #define TOTALNUM  0
+
 #define TOTALNUM0  1
+
 EOF
 
 __33 - Menyalin file bootloader dan konfigurasi untuk ISO__
@@ -382,24 +420,39 @@ cp /usr/lib/grub/x86_64-efi-signed/grubx64.efi.signed isolinux/grubx64.efi
 __34 - Pastekan Perintah ini di Terminal__
 
 (
+
    cd isolinux && \
+   
    dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
+   
    mkfs.vfat -F 16 efiboot.img && \
+   
    LC_CTYPE=C mmd -i efiboot.img efi efi/ubuntu efi/boot && \
+   
    LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/bootx64.efi && \
+   
    LC_CTYPE=C mcopy -i efiboot.img ./mmx64.efi ::efi/boot/mmx64.efi && \
+   
    LC_CTYPE=C mcopy -i efiboot.img ./grubx64.efi ::efi/boot/grubx64.efi && \
+   
    LC_CTYPE=C mcopy -i efiboot.img ./grub.cfg ::efi/ubuntu/grub.cfg
 )
 
 
 grub-mkstandalone \
+   
    --format=i386-pc \
+   
    --output=isolinux/core.img \
+   
    --install-modules="linux16 linux normal iso9660 biosdisk memdisk search tar ls" \
+   
    --modules="linux16 linux normal iso9660 biosdisk search" \
+   
    --locales="" \
+   
    --fonts="" \
+   
    "boot/grub/grub.cfg=isolinux/grub.cfg"
 
 
@@ -447,14 +500,23 @@ sudo mv chroot/image .
 __37 - Membuat Live File System untuk ISO File__
 
 sudo mksquashfs chroot image/casper/filesystem.squashfs \
+   
    -noappend -no-duplicates -no-recovery \
+   
    -wildcards \
+   
    -comp xz -b 1M -Xdict-size 100% \
+   
    -e "var/cache/apt/archives/*" \
+   
    -e "root/*" \
+   
    -e "root/.*" \
+   
    -e "tmp/*" \
+   
    -e "tmp/.*" \
+   
    -e "swapfile"
 
 __38 - Mencetak dan Menulis Output Chroot ke folder image/casper ke Filesystem.size__
@@ -470,18 +532,26 @@ cd $HOME/live-bedillos/image
 __40 - Menggunakan xorriso untuk membuat file ISO yang dapat boot__
 
 sudo xorriso -as mkisofs -iso-level 3 -full-iso9660-filenames -J -J -joliet-long \
+   
     -volid "Bedillos" -output "$HOME/live-bedillos/bedillos.iso" \
+    
     -eltorito-boot isolinux/bios.img -no-emul-boot -boot-load-size 4 -boot-info-table \
+    
     --eltorito-catalog boot.catalog --grub2-boot-info --grub2-mbr /image/usr/lib/grub/i386-pc/boot_hybrid.img \
+    
     -partition_offset 16 -eltorito-alt-boot -no-emul-boot -e isolinux/efiboot.img \
+    
     -append_partition 2 0xEF isolinux/efiboot.img -appended_part_as_gpt \
+    
     -m "isolinux/efiboot.img" -m "isolinux/bios.img" -exclude isolinux \
+    
     -graft-points "/EFI/boot/bootx64.efi=isolinux/bootx64.efi" \
+    
     "/EFI/boot/mmx64.efi=isolinux/mmx64.efi" "/EFI/boot/grubx64.efi=isolinux/grubx64.efi" \
+    
     "/EFI/ubuntu/grub.cfg=isolinux/grub.cfg" .
 
- 
-__** Setelah proses pembuatan ISO selesai, Anda dapat keluar dari chroot__
+__** 00 - Setelah proses pembuatan ISO selesai, Anda dapat keluar dari chroot__
 
 exit
 
