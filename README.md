@@ -20,7 +20,7 @@ f. Buat folder baru di dalam root folder > mkdir /root/live-bedillos
 __1 - Perintah pertama adalah mengunduh dan menyiapkan sistem minimal Ubuntu dengan debootstrap__
 
 __---Jangan di jalankan jika kamu unduh archive.zip---__
-___________________________________________________________
+
 
 sudo debootstrap \
    
@@ -34,7 +34,6 @@ sudo debootstrap \
 
    http://us.archive.ubuntu.com/ubuntu/
 
-_______________________________________________________________
 
 
 __2 - Memasang sistem file dev dan run ke dalam lingkungan chroot agar perangkat keras dapat diakses__
