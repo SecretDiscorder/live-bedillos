@@ -25,15 +25,10 @@ __1 - Perintah pertama adalah mengunduh dan menyiapkan sistem minimal Ubuntu den
 ```
 
 sudo debootstrap \
-   
    --arch=amd64 \
-   
    --variant=minbase \
-   
    xenial \
-   
    $HOME/live-bedillos/chroot \
-
    http://us.archive.ubuntu.com/ubuntu/
 ```
 
@@ -58,9 +53,7 @@ sudo chroot $HOME/live-bedillos/chroot
 __4 - Memasang beberapa sistem file virtual yang diperlukan untuk menjalankan sistem Linux di dalam chroot__
 ```
 mount none -t proc /proc
-
 mount none -t sysfs /sys
-
 mount none -t devpts /dev/pts
 
 ```
@@ -68,7 +61,6 @@ mount none -t devpts /dev/pts
 __5 - Mengatur variabel lingkungan__
 ```
 export HOME=/root
-
 export LC_ALL=C
 ```
 
@@ -82,19 +74,12 @@ echo "bedillos" > /etc/hostname
 __7 - Menambahkan daftar repositori untuk apt__
 ```
 cat <<EOF > /etc/apt/sources.list
-
 deb http://us.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
-
 deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
-
 deb http://us.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse
-
 deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse
-
 deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
-
 deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
-
 EOF
 ```
 
@@ -102,71 +87,44 @@ EOF
 __8 - Memperbarui daftar paket dan menginstal beberapa paket dasar__
 ```
 sudo apt update
-
 apt-get install -y libterm-readline-gnu-perl systemd-sysv
-
 ```
 
 __9 - Mengatur ID mesin dan mengonfigurasi dbus__
 ```
 dbus-uuidgen > /etc/machine-id
-
 ln -fs /etc/machine-id /var/lib/dbus/machine-id
-
 ```
 
 __10 - Mengalihkan initctl untuk memastikan sistem dapat berjalan tanpa masalah__
 ```
 dpkg-divert --local --rename --add /sbin/initctl
-
 ln -s /bin/true /sbin/initctl
-
 ```
 
 __11 - Melakukan upgrade sistem dan menginstal beberapa paket tambahan__
 ```
 apt-get -y upgrade
-
 apt-get install -y \
-
    sudo \
-
    ubuntu-standard \
-
    casper \
-
    discover \
-
    laptop-detect \
-
    os-prober \
-
    network-manager \
-
    net-tools \
-
    wireless-tools \
-
    wpagui \
-
    locales \
-
    grub-common \
-
    grub-gfxpayload-lists \
-
    grub-pc \
-
    grub-pc-bin \
-
    grub2-common \
-
    grub-efi-amd64-signed \
-
    shim-signed \
-
    mtools \
-
    binutils
 ```
 
