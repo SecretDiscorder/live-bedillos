@@ -35,10 +35,7 @@ sudo debootstrap \
 
 __2 - Memasang sistem file dev dan run ke dalam lingkungan chroot agar perangkat keras dapat diakses__
 ```
-
 sudo mount --bind /dev $HOME/live-bedillos/chroot/dev
-
-
 sudo mount --bind /run $HOME/live-bedillos/chroot/run
 
 ```
@@ -81,6 +78,9 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-security main restricted uni
 deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
 deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
 EOF
+
+apt install software-properti* && add-apt-repository ppa:maarten-baert/simplescreenrecorder
+
 ```
 
 
@@ -104,6 +104,7 @@ ln -s /bin/true /sbin/initctl
 
 __11 - Melakukan upgrade sistem dan menginstal beberapa paket tambahan__
 ```
+apt install simplescreenrecorder dolphin
 apt-get -y upgrade
 apt-get install -y \
    sudo \
@@ -133,16 +134,11 @@ apt-get install -y \
 __12 - Menginstal paket untuk installer Ubuntu__
 ```
 apt-get install -y \
-
    ubiquity \
-
    ubiquity-casper \
-
    ubiquity-frontend-gtk \
-
    ubiquity-slideshow-ubuntu \
-  
-   ubiquity-ubuntu-artwork
+   ubiquity-ubuntu-artwork dolphin
 ```
 
 
@@ -155,19 +151,12 @@ apt-get install -y plymouth-themes
 __14 - Menginstal beberapa aplikasi dan utilitas__
 ```
 apt-get install -y \
-
    clamav-daemon \
-
    terminator \
-
    apt-transport-https \
-
    curl \
-
    vim \
-
    nano \
-
    less
 ```
 
@@ -192,7 +181,7 @@ apt install phpmyadmin firefox snapd snap
 
 apt install screenfetch blueman bluetooth* pulseaudio*
 
-sudo apt install build-essential autoconf libx11-dev libxext-dev libxrender-dev libxrandr-dev libxinerama-dev libxi-dev libxft-dev libgl1-mesa-dev libegl1-mesa-dev
+apt install adb build-essential autoconf libx11-dev libxext-dev libxrender-dev libxrandr-dev libxinerama-dev libxi-dev libxft-dev libgl1-mesa-dev libegl1-mesa-dev
 
 
 ```
@@ -210,19 +199,27 @@ __20 - Menginstal alat pengembangan dan paket lain yang diperlukan__
 ```
 apt install build-essential gdb lcov pkg-config libbz2-dev libffi-dev libgdbm-dev liblzma-dev libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev lzma lzma-dev tk-dev uuid-dev zlib1g-dev
 
-sudo add-apt-repository ppa:alexlarsson/flatpak
+add-apt-repository ppa:alexlarsson/flatpak
 
-sudo apt update
+add-apt-repository ppa:<ISI DENGAN FIREFOX UBUNTU 16>
 
-sudo apt install flatpak
+apt update
+
+apt install print-manager
+
+apt install flatpak nestopia gnome-chess
+
+snap install ppsspp-emu
 
 ```
 __21 - Menginstal LibreOffice dan alat Python__
 ```
 apt install libreoffice ant python3-pip python3-venv python3 
 ```
-__22 - Menginstal Java__
+__22 - Menginstal Java dan Screen Mirroring__
 ```
+flatpak install flathub org.gnome.NetworkDisplays
+
 apt-get install -y openjdk-8-jdk openjdk-8-jre
 ```
 __23 - Mengonfigurasi NetworkManager__
@@ -230,19 +227,12 @@ __23 - Mengonfigurasi NetworkManager__
 dpkg-reconfigure locales
 
 cat <<EOF > /etc/NetworkManager/NetworkManager.conf
-
 [main]
-
 rc-manager=none
-
 plugins=ifupdown,keyfile
-
 dns=systemd-resolved
-
 [ifupdown]
-
 managed=false
-
 EOF
 
 dpkg-reconfigure network-manager
@@ -274,59 +264,42 @@ touch /image/ubuntu
 __28 - Mengonfigurasi grub untuk memulai proses boot__
 ```
 cat <<EOF > /image/isolinux/grub.cfg
-
 search --set=root --file /ubuntu
-
 insmod all_video
-
 set default="0"
-
-set timeout=10
-
+set timeout=5
 menuentry "Try Ubuntu FS without installing" {
    linux /casper/vmlinuz boot=casper nopersistent toram quiet splash ---
    initrd /casper/initrd
 }
-
 menuentry "Install Ubuntu FS" {
-
    linux /casper/vmlinuz boot=casper quiet splash ---
-
    initrd /casper/initrd
 }
 
 menuentry "Check disc for defects" {
-   
    linux /casper/vmlinuz boot=casper integrity-check quiet splash ---
-   
    initrd /casper/initrd
 }
 
 grub_platform
 
 if [ "\$grub_platform" = "efi" ]; then
-
 menuentry 'UEFI Firmware Settings' {
-
    fwsetup
 }
 
 menuentry "Test memory Memtest86+ (UEFI)" {
-
    linux /install/memtest86+.efi
-
 }
 
 else
 
 menuentry "Test memory Memtest86+ (BIOS)" {
-
    linux16 /install/memtest86+.bin
-
 }
 
 fi
-
 EOF
 ```
 __29 - Membuat manifest untuk paket yang telah diinstal__
@@ -387,41 +360,25 @@ cp /usr/lib/grub/x86_64-efi-signed/grubx64.efi.signed isolinux/grubx64.efi
 __34 - Pastekan Perintah ini di Terminal__
 ```
 (
-
-   cd isolinux && \
-   
+   cd isolinux && \  
    dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
-   
    mkfs.vfat -F 16 efiboot.img && \
-   
    LC_CTYPE=C mmd -i efiboot.img efi efi/ubuntu efi/boot && \
-   
    LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/bootx64.efi && \
-   
    LC_CTYPE=C mcopy -i efiboot.img ./mmx64.efi ::efi/boot/mmx64.efi && \
-   
    LC_CTYPE=C mcopy -i efiboot.img ./grubx64.efi ::efi/boot/grubx64.efi && \
-   
    LC_CTYPE=C mcopy -i efiboot.img ./grub.cfg ::efi/ubuntu/grub.cfg
 )
 
 
 grub-mkstandalone \
-   
    --format=i386-pc \
-   
    --output=isolinux/core.img \
-   
    --install-modules="linux16 linux normal iso9660 biosdisk memdisk search tar ls" \
-   
    --modules="linux16 linux normal iso9660 biosdisk search" \
-   
    --locales="" \
-   
    --fonts="" \
-   
    "boot/grub/grub.cfg=isolinux/grub.cfg"
-
 
 cat /usr/lib/grub/i386-pc/cdboot.img isolinux/core.img > isolinux/bios.img
 
@@ -467,23 +424,14 @@ sudo mv chroot/image .
 __37 - Membuat Live File System untuk ISO File__
 ```
 sudo mksquashfs chroot image/casper/filesystem.squashfs \
-   
    -noappend -no-duplicates -no-recovery \
-   
    -wildcards \
-   
    -comp xz -b 1M -Xdict-size 100% \
-   
    -e "var/cache/apt/archives/*" \
-   
    -e "root/*" \
-   
    -e "root/.*" \
-   
    -e "tmp/*" \
-   
    -e "tmp/.*" \
-   
    -e "swapfile"
 ```
 __38 - Mencetak dan Menulis Output Chroot ke folder image/casper ke Filesystem.size__
@@ -499,23 +447,14 @@ cd $HOME/live-bedillos/image
 __40 - Menggunakan xorriso untuk membuat file ISO yang dapat boot__
 ```
 sudo xorriso -as mkisofs -iso-level 3 -full-iso9660-filenames -J -J -joliet-long \
-   
     -volid "Bedillos" -output "$HOME/live-bedillos/bedillos.iso" \
-    
     -eltorito-boot isolinux/bios.img -no-emul-boot -boot-load-size 4 -boot-info-table \
-    
     --eltorito-catalog boot.catalog --grub2-boot-info --grub2-mbr /image/usr/lib/grub/i386-pc/boot_hybrid.img \
-    
     -partition_offset 16 -eltorito-alt-boot -no-emul-boot -e isolinux/efiboot.img \
-    
     -append_partition 2 0xEF isolinux/efiboot.img -appended_part_as_gpt \
-    
     -m "isolinux/efiboot.img" -m "isolinux/bios.img" -exclude isolinux \
-    
     -graft-points "/EFI/boot/bootx64.efi=isolinux/bootx64.efi" \
-    
     "/EFI/boot/mmx64.efi=isolinux/mmx64.efi" "/EFI/boot/grubx64.efi=isolinux/grubx64.efi" \
-    
     "/EFI/ubuntu/grub.cfg=isolinux/grub.cfg" .
 ```
 __** 00 - Setelah proses pembuatan ISO selesai, Anda dapat keluar dari chroot__
