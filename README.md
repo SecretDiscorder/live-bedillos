@@ -251,6 +251,13 @@ apt autoremove
 __20 - Menginstal alat pengembangan dan paket lain yang diperlukan__
 ```
 apt install build-essential gdb lcov pkg-config libbz2-dev libffi-dev libgdbm-dev liblzma-dev libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev lzma lzma-dev tk-dev uuid-dev zlib1g-dev
+
+sudo add-apt-repository ppa:alexlarsson/flatpak
+
+sudo apt update
+
+sudo apt install flatpak
+
 ```
 __21 - Menginstal LibreOffice dan alat Python__
 ```
