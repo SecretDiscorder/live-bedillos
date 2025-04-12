@@ -446,16 +446,10 @@ cd $HOME/live-bedillos/image
 
 __40 - Menggunakan xorriso untuk membuat file ISO yang dapat boot__
 ```
-sudo xorriso -as mkisofs -iso-level 3 -full-iso9660-filenames -J -J -joliet-long \
-    -volid "Bedillos" -output "$HOME/live-bedillos/bedillos.iso" \
-    -eltorito-boot isolinux/bios.img -no-emul-boot -boot-load-size 4 -boot-info-table \
-    --eltorito-catalog boot.catalog --grub2-boot-info --grub2-mbr /image/usr/lib/grub/i386-pc/boot_hybrid.img \
-    -partition_offset 16 -eltorito-alt-boot -no-emul-boot -e isolinux/efiboot.img \
-    -append_partition 2 0xEF isolinux/efiboot.img -appended_part_as_gpt \
-    -m "isolinux/efiboot.img" -m "isolinux/bios.img" -exclude isolinux \
-    -graft-points "/EFI/boot/bootx64.efi=isolinux/bootx64.efi" \
-    "/EFI/boot/mmx64.efi=isolinux/mmx64.efi" "/EFI/boot/grubx64.efi=isolinux/grubx64.efi" \
-    "/EFI/ubuntu/grub.cfg=isolinux/grub.cfg" .
+
+sudo xorriso -as mkisofs -iso-level 3 -full-iso9660-filenames -J -J -joliet-long -volid "BedillOS" -output "../bedill-os.iso" -eltorito-boot isolinux/bios.img -no-emul-boot -boot-load-size 4 -boot-info-table --eltorito-catalog boot.catalog --grub2-boot-info --grub2-mbr ../chroot/usr/lib/grub/i386-pc/boot_hybrid.img -partition_offset 16 -eltorito-alt-boot -no-emul-boot -e isolinux/efiboot.img -append_partition 2 0xEF isolinux/efiboot.img -appended_part_as_gpt -m "isolinux/efiboot.img" -m "isolinux/bios.img" -exclude isolinux -graft-points "/EFI/boot/bootx64.efi=isolinux/bootx64.efi" "/EFI/boot/mmx64.efi=isolinux/mmx64.efi" "/EFI/boot/grubx64.efi=isolinux/grubx64.efi" "/EFI/ubuntu/grub.cfg=isolinux/grub.cfg" "/isolinux/bios.img=isolinux/bios.img" "/isolinux/efiboot.img=isolinux/efiboot.img" "."
+
+
 ```
 __** 00 - Setelah proses pembuatan ISO selesai, Anda dapat keluar dari chroot__
 ```
