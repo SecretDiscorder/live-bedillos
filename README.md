@@ -1,4 +1,4 @@
-# Langkah-Langkah Membangun Ubuntu Buatan Lokal "BedillOS" 
+# Langkah-Langkah Membangun Ubuntu Buatan Lokal "BedillOS amd64" 
 
 ### Persyaratan
 
