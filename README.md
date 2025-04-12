@@ -5,7 +5,7 @@
 
 a. Gunakan Linux Debian / Ubuntu Untuk Menjalankan Perintah Ini 
 
-b. Install VirtualBox dan debootstrap > ```apt install debootstrap```
+b. Install VirtualBox dan debootstrap > ```apt install schroot debootstrap```
 
 c. Login root dengan perintah > ```sudo su```
 
