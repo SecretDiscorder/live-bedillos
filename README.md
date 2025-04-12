@@ -1,6 +1,6 @@
 # Langkah-Langkah Membangun Ubuntu Buatan Lokal "BedillOS" 
 
-__Persyaratan__
+### Persyaratan
 
 
 a. Gunakan Linux Debian / Ubuntu Untuk Menjalankan Perintah Ini 
