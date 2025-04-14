@@ -553,3 +553,12 @@ sudo xorriso \
    "$HOME/live-ubuntu-from-scratch/image"
 
 ```
+
+
+### 45 - For installation
+
+Type ```ubiquity``` in terminal
+
+after run make sure you DON'T Checklist this option
+
+![IMG-20250414-WA0014](https://github.com/user-attachments/assets/81816515-23e1-4d25-aa8d-0798587e5bd2)
