@@ -125,7 +125,7 @@ apt-get install -y \
    grub-pc \
    grub-pc-bin \
    grub2-common \
-   grub-efi-amd64-signed \
+   grub-efi \
    shim-signed \
    mtools \
    binutils
