@@ -183,7 +183,7 @@ after choose Lubuntu Run
 
 apt purge grub*
 
-apt install grub-efi* ubiquity
+apt install grub-efi-amd64* ubiquity
 
 update-grub
 
