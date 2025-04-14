@@ -599,6 +599,8 @@ after run make sure you __NOT CHECKLIST__ this option and __NOT CONNECT ANY NETW
 
 - THIS IS HAPPEN WHEN YOU CONNECT A NETWORK > ```ERROR BROKEN DEPEDENCY grub-install unable to find bootloader at /dev/sda```
 
+
+see solution: https://unix.stackexchange.com/questions/96977/grub-probe-error-failed-to-get-canonical-path-of-cow
   
 
 
