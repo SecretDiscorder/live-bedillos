@@ -576,9 +576,19 @@ Type
 Type
 ``` dd if=../ubuntu-from-scratch.iso of=/dev/sdb status=progress```
 
+```reboot```
+
+after reboot power on, press F9 for HP1000 Computer or F12 or search your Boot option Computer Key in Google Search.
+
+Choose your Flashdisk with ```arrow up``` or ```arrow down``` key and ```ENTER```
+
+AFTER LOGIN SCREEN PASSWROD ```ubuntu```
+
+open Teminal 
 
 Type ```ubiquity``` in terminal
 
-after run make sure you DON'T Checklist this option
+
+after run make sure you Checklist this option
 
 ![IMG-20250414-WA0014](https://github.com/user-attachments/assets/81816515-23e1-4d25-aa8d-0798587e5bd2)
