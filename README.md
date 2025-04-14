@@ -597,4 +597,9 @@ Type ```ubiquity``` in terminal
 
 after run make sure you __NOT CHECKLIST__ this option and __NOT CONNECT ANY NETWORK__
 
+- THIS IS HAPPEN WHEN YOU CONNECT A NETWORK > ```ERROR BROKEN DEPEDENCY grub-install unable to find bootloader at /dev/sda```
+
+  
+
+
 ![IMG-20250414-WA0014](https://github.com/user-attachments/assets/81816515-23e1-4d25-aa8d-0798587e5bd2)
