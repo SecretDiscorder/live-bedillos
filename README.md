@@ -185,6 +185,8 @@ apt purge grub*
 
 apt install grub-efi* ubiquity
 
+update-grub
+
 ```
 
 
