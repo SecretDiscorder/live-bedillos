@@ -557,6 +557,16 @@ sudo xorriso \
 
 ### 45 - For installation
 
+Still in image/ folder. and plug USB DRIVE / FLASHDISK 
+
+Type
+``` umount /dev/sdX ``` > change X with your Flashdisk in output ```lsblk```
+ example ```/dev/sdb```
+
+Type
+``` dd if=../ubuntu-from-scratch.iso of=/dev/sdb status=progress```
+
+
 Type ```ubiquity``` in terminal
 
 after run make sure you DON'T Checklist this option
