@@ -25,13 +25,13 @@ __1 - Perintah pertama adalah mengunduh dan menyiapkan sistem minimal Ubuntu den
 
 - (nb: check Releases Page ada live-bedillos.tar)
 ```
-
 sudo debootstrap \
    --arch=amd64 \
    --variant=minbase \
    xenial \
    $HOME/live-bedillos/chroot \
    http://us.archive.ubuntu.com/ubuntu/
+
 ```
 
 
@@ -61,12 +61,14 @@ __5 - Mengatur variabel lingkungan__
 ```
 export HOME=/root
 export LC_ALL=C
+
 ```
 
 
 __6 - Mengubah nama host untuk sistem yang sedang dibangun__
 ```
 echo "bedillos" > /etc/hostname
+
 ```
 
 
@@ -90,18 +92,21 @@ __8 - Memperbarui daftar paket dan menginstal beberapa paket dasar__
 ```
 sudo apt update
 apt-get install -y libterm-readline-gnu-perl systemd-sysv
+
 ```
 
 __9 - Mengatur ID mesin dan mengonfigurasi dbus__
 ```
 dbus-uuidgen > /etc/machine-id
 ln -fs /etc/machine-id /var/lib/dbus/machine-id
+
 ```
 
 __10 - Mengalihkan initctl untuk memastikan sistem dapat berjalan tanpa masalah__
 ```
 dpkg-divert --local --rename --add /sbin/initctl
 ln -s /bin/true /sbin/initctl
+
 ```
 
 __11 - Melakukan upgrade sistem dan menginstal beberapa paket tambahan__
@@ -129,6 +134,7 @@ apt-get install -y \
    shim-signed \
    mtools \
    binutils
+
 ```
 
 
@@ -141,6 +147,7 @@ apt-get install -y \
    ubiquity-frontend-gtk \
    ubiquity-slideshow-ubuntu \
    ubiquity-ubuntu-artwork dolphin
+
 ```
 
 
@@ -160,12 +167,14 @@ apt-get install -y \
    vim \
    nano \
    less
+
 ```
 
 
 __15 - Memulai tool "tasksel" untuk memilih dan menginstal lingkungan desktop (Lubuntu)__
 ```
 tasksel
+
 ```
 
 after choose Lubuntu Run
@@ -183,6 +192,7 @@ __16 - Menginstal paket untuk LXDE dan lingkungan desktop ringan__
 
 ```
 apt-get install -y lxde-core openbox* lxpanel* pcmanfm lxsession* lxappearance* lxterminal lxrandr lxinput lximage-qt gpicview lightdm* xserver-xorg feh compton gnome-screenshot synaptic tasksel gedit network-manager network-manager-gnome ifupdown nmcli wicd net-tools inetutils-ping curl wget traceroute nmap dnsutils openssh-client openssh-server nano vim gedit pcmanfm thunar vlc mpv audacious ffmpeg firefox chromium-browser midori zip unzip tar gzip bzip2 xz-utils libreoffice evince catfish htop gparted gksu ufw rsync deja-dup
+
 ```
 
 __17 - Menginstal aplikasi tambahan seperti kdenlive dan phpmyadmin__
