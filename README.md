@@ -125,8 +125,11 @@ apt-get install -y \
    wireless-tools \
    wpagui \
    locales \
-   grub-efi-amd64* \
-   shim-signed \
+   grub-common \
+   grub-gfxpayload-lists \
+   grub-pc \
+   grub-pc-bin \
+   grub2-common \
    mtools \
    binutils
 
@@ -172,15 +175,6 @@ tasksel
 
 ```
 
-after choose Lubuntu Run
-
-```
-
-apt install grub-efi-amd64* ubiquity
-
-update-grub
-
-```
 
 
 __16 - Menginstal paket untuk LXDE dan lingkungan desktop ringan__
@@ -499,6 +493,13 @@ sudo xorriso \
       "."
 
 
+
+```
+
+untuk Ubuntu 16 Xorriso < 1.56
+
+```
+sudo xorriso -as mkisofs -iso-level 3 -full-iso9660-filenames -J -J -joliet-long -volid "Bedillos" -output "$HOME/live-bedillos/bedillos.iso" -eltorito-boot isolinux/bios.img -no-emul-boot -boot-load-size 4 -boot-info-table --eltorito-catalog boot.catalog --grub2-boot-info --grub2-mbr /image/usr/lib/grub/i386-pc/boot_hybrid.img -partition_offset 16 -eltorito-alt-boot -no-emul-boot -e isolinux/efiboot.img -append_partition 2 0xEF isolinux/efiboot.img -appended_part_as_gpt -m "isolinux/efiboot.img" -m "isolinux/bios.img" -exclude isolinux -graft-points "/EFI/boot/bootx64.efi=isolinux/bootx64.efi" "/EFI/boot/mmx64.efi=isolinux/mmx64.efi" "/EFI/boot/grubx64.efi=isolinux/grubx64.efi" "/EFI/ubuntu/grub.cfg=isolinux/grub.cfg" .
 
 ```
 __** 00 - Setelah proses pembuatan ISO selesai, Anda dapat keluar dari chroot__
