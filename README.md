@@ -9,7 +9,7 @@ b. Install VirtualBox dan debootstrap > ```apt install schroot debootstrap```
 
 c. Login root dengan perintah > ```sudo su```
 
-d. set HOME ke /root folder
+d. set HOME ke /root folder > ```export HOME=/root```
 
 e. Install Dependensi yang diperlukan > ```apt install mkisofs xorriso```
 
