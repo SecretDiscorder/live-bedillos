@@ -15,6 +15,8 @@ e. Install Dependensi yang diperlukan > ```apt install mkisofs xorriso```
 
 f. Buat folder baru di dalam root folder > ```mkdir /root/live-bedillos```
 
+g. Memakai Xorriso versi 1.56 atau cek dengan perintah > ```xorriso -version ```
+
 ### Urutan Prosedur
 
 __1 - Perintah pertama adalah mengunduh dan menyiapkan sistem minimal Ubuntu dengan debootstrap__
