@@ -446,7 +446,7 @@ __39 - Pergi ke Folder Image__
 cd $HOME/live-bedillos/image
 ```
 
-__40 - Menggunakan xorriso untuk membuat file ISO yang dapat boot__
+__40 - Menggunakan xorriso 1.56 untuk membuat file ISO yang dapat boot__
 ```
 sudo xorriso \
    -as mkisofs \
