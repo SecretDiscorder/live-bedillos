@@ -181,7 +181,7 @@ apt install kdenlive php php-mbstring libapache2-mod-php apache2 mariadb-server 
 
 apt install phpmyadmin firefox snapd snap 
 
-apt install screenfetch blueman bluetooth* pulseaudio*
+apt install screenfetch blueman bluetooth* pulseaudio* bluez blueman
 
 apt install adb build-essential autoconf libx11-dev libxext-dev libxrender-dev libxrandr-dev libxinerama-dev libxi-dev libxft-dev libgl1-mesa-dev libegl1-mesa-dev
 
