@@ -165,7 +165,17 @@ apt-get install -y \
 
 __15 - Memulai tool "tasksel" untuk memilih dan menginstal lingkungan desktop (Lubuntu)__
 ```
-tasksel 
+tasksel
+```
+
+after choose Lubuntu Run
+
+```
+
+apt purge grub*
+
+apt install grub-efi* ubiquity
+
 ```
 
 
