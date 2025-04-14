@@ -125,12 +125,7 @@ apt-get install -y \
    wireless-tools \
    wpagui \
    locales \
-   grub-common \
-   grub-gfxpayload-lists \
-   grub-pc \
-   grub-pc-bin \
-   grub2-common \
-   grub-efi \
+   grub-efi-amd64* \
    shim-signed \
    mtools \
    binutils
