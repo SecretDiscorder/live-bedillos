@@ -570,8 +570,8 @@ sudo xorriso \
 Still in image/ folder. and plug USB DRIVE / FLASHDISK 
 
 Type
-``` umount /dev/sdX ``` > change X with your Flashdisk in output ```lsblk```
- example ```/dev/sdb```
+``` umount /dev/sdX1 ``` > change X with your Flashdisk in output ```lsblk```
+ example ```/dev/sdb1```
 
 Type
 ``` dd if=../ubuntu-from-scratch.iso of=/dev/sdb status=progress```
