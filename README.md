@@ -595,6 +595,6 @@ open Teminal
 Type ```ubiquity``` in terminal
 
 
-after run make sure you Checklist this option
+after run make sure you not checklist this option and not connect any network
 
 ![IMG-20250414-WA0014](https://github.com/user-attachments/assets/81816515-23e1-4d25-aa8d-0798587e5bd2)
