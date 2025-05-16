@@ -116,7 +116,7 @@ ln -s /bin/true /sbin/initctl
 __11 - Melakukan upgrade sistem dan menginstal beberapa paket tambahan__
 ```
 apt update
-apt install simplescreenrecorder dolphin nemo
+apt install simplescreenrecorder dolphin nemo -y
 apt-get -y upgrade
 apt-get install -y \
    sudo \
