@@ -159,7 +159,7 @@ sudo apt install -y git cmake qtbase5-dev qttools5-dev-tools \
     libudisks2-dev pkg-config gettext
 
 
-git clone https://github.com/calamares/calamares.git
+git clone --branch 3.2.x-stable https://github.com/calamares/calamares.git
 cd calamares
 mkdir build
 cd build
@@ -303,6 +303,20 @@ apt install screenfetch blueman bluetooth* pulseaudio* bluez blueman
 apt install adb build-essential autoconf libx11-dev libxext-dev libxrender-dev libxrandr-dev libxinerama-dev libxi-dev libxft-dev libgl1-mesa-dev libegl1-mesa-dev
 
 snap install opera
+
+# Ganti 'bedil' dengan nama user yang kamu mau
+USERNAME=bedill
+PASSWORD=bedill
+
+# Tambah user
+useradd -m -s /bin/bash $USERNAME
+
+# Set password
+echo "$USERNAME:$PASSWORD" | chpasswd
+
+# Tambah ke grup penting
+usermod -aG sudo,adm,audio,video,netdev $USERNAME
+
 
 
 ```
