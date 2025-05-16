@@ -83,7 +83,7 @@ deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe
 deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
 EOF
 
-apt install software-properti* sudo
+apt install software-properti* sudo -y
 
 ```
 
