@@ -210,7 +210,9 @@ apt-get install -y \
    curl \
    vim \
    nano \
-   less
+   less \
+   tasksel
+   
 
 ```
 
