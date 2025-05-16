@@ -161,8 +161,16 @@ sudo apt install -y git cmake qtbase5-dev qttools5-dev-tools \
 
 git clone --branch 3.2.x-stable https://github.com/calamares/calamares.git
 cd calamares
+
+apt install nano -y
+
+sudo apt install -y qtcreator qtbase5-dev qt5-qmake
+
 mkdir build
 cd build
+
+
+
 cmake ..
 make -j$(nproc)
 sudo make install
