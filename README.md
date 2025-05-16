@@ -159,7 +159,7 @@ sudo apt install -y git cmake qtbase5-dev qttools5-dev-tools \
     libudisks2-dev pkg-config gettext
 
 
-git clone --branch calamares-3.2 https://github.com/calamares/calamares.git
+git clone https://github.com/calamares/calamares.git
 cd calamares
 mkdir build
 cd build
