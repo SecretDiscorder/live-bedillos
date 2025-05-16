@@ -149,7 +149,8 @@ apt-get install -y \
    ubiquity-casper \
    ubiquity-frontend-gtk \
    ubiquity-slideshow-ubuntu \
-   ubiquity-ubuntu-artwork dolphin
+   ubiquity-ubuntu-artwork dolphin \
+   calamares
 
 echo "📦 Membuat struktur folder Calamares..."
 mkdir -p /etc/calamares/modules
