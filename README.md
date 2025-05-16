@@ -637,9 +637,9 @@ sudo xorriso \
 ```
 #!/bin/bash
 xorriso -as mkisofs \
-  -V "Custom Debian 10 Live Media" \
+  -V "BedillOS_Live" \
   -J -R \
-  -isohybrid-mbr sblive/isolinux/ \
+  -isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin \
   -c isolinux/boot.cat \
   -b isolinux/isolinux.bin \
   -iso-level 3 \
@@ -652,6 +652,7 @@ xorriso -as mkisofs \
   -isohybrid-gpt-basdat \
   -o sblive.iso \
   sblive
+
 
 The isohdpfx.bin part of isolinux package, put it
 from the /usr/lib/ISOLINUX/ to sblive/isolinux directory
