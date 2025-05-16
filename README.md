@@ -5,7 +5,7 @@
 
 a. Gunakan Linux Debian / Ubuntu Untuk Menjalankan Perintah Ini 
 
-b. Install VirtualBox dan debootstrap > ```apt install schroot debootstrap```
+b. Install chroot dan debootstrap > ```apt install schroot debootstrap```
 
 c. Login root dengan perintah > ```sudo su```
 
@@ -23,7 +23,7 @@ __1 - Perintah pertama adalah mengunduh dan menyiapkan sistem minimal Ubuntu den
 
 - ALERT: Jangan di jalankan jika kamu unduh archive format ```.tar```di Halaman Link Releases
 
-- (nb: check Releases Page ada live-bedillos.tar)
+- pergi ke /root/live-bedillos > ``` cd /root/live-bedillos```
 ```
 sudo debootstrap \
    --arch=amd64 \
