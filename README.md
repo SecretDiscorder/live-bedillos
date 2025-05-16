@@ -634,7 +634,29 @@ sudo xorriso \
 
 ```
 
+```
+#!/bin/bash
+xorriso -as mkisofs \
+  -V "Custom Debian 10 Live Media" \
+  -J -R \
+  -isohybrid-mbr sblive/isolinux/ \
+  -c isolinux/boot.cat \
+  -b isolinux/isolinux.bin \
+  -iso-level 3 \
+  -no-emul-boot \
+  -boot-load-size 4 \
+  -boot-info-table \
+  -eltorito-alt-boot \
+  -e boot/grub/efi.img \
+  -no-emul-boot \
+  -isohybrid-gpt-basdat \
+  -o sblive.iso \
+  sblive
 
+The isohdpfx.bin part of isolinux package, put it
+from the /usr/lib/ISOLINUX/ to sblive/isolinux directory
+I probed it on Debian Buster, worked good for me.
+```
 ### 45 - For installation
 
 Still in image/ folder. and plug USB DRIVE / FLASHDISK 
