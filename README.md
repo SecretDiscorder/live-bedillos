@@ -149,8 +149,23 @@ apt-get install -y \
    ubiquity-casper \
    ubiquity-frontend-gtk \
    ubiquity-slideshow-ubuntu \
-   ubiquity-ubuntu-artwork dolphin \
-   calamares
+   ubiquity-ubuntu-artwork dolphin
+
+sudo apt install -y git cmake qtbase5-dev qttools5-dev-tools \
+    qtdeclarative5-dev libpolkit-qt5-1-dev libyaml-cpp-dev \
+    libboost-all-dev libparted-dev libkf5config-dev \
+    libkf5coreaddons-dev libkf5i18n-dev libkf5service-dev \
+    libpwquality-dev libssl-dev libpam0g-dev libmount-dev \
+    libudisks2-dev pkg-config gettext
+
+
+git clone --branch calamares-3.2 https://github.com/calamares/calamares.git
+cd calamares
+mkdir build
+cd build
+cmake ..
+make -j$(nproc)
+sudo make install
 
 echo "📦 Membuat struktur folder Calamares..."
 mkdir -p /etc/calamares/modules
