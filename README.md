@@ -151,6 +151,93 @@ apt-get install -y \
    ubiquity-slideshow-ubuntu \
    ubiquity-ubuntu-artwork dolphin
 
+echo "📦 Membuat struktur folder Calamares..."
+mkdir -p /etc/calamares/modules
+mkdir -p /etc/calamares/branding/bedillos
+
+echo "📝 Menulis settings.conf..."
+cat << 'EOF' > /etc/calamares/settings.conf
+---
+sequence:
+ - show:
+     - welcome
+ - show:
+     - locale
+ - show:
+     - keyboard
+ - exec:
+     - partition
+ - show:
+     - users
+ - exec:
+     - summary
+ - exec:
+     - install
+ - exec:
+     - bootloader
+ - show:
+     - finished
+
+branding: bedillos
+modules-search:
+ - /etc/calamares/modules
+EOF
+
+echo "📝 Menulis modules/partition.conf..."
+cat << 'EOF' > /etc/calamares/modules/partition.conf
+---
+partition-module: replace
+automated: false
+EOF
+
+echo "📝 Menulis modules/users.conf..."
+cat << 'EOF' > /etc/calamares/modules/users.conf
+---
+defaultGroups:
+ - audio
+ - video
+ - wheel
+ - network
+ - sudo
+sudoersGroup: sudo
+EOF
+
+echo "📝 Menulis modules/locale.conf..."
+cat << 'EOF' > /etc/calamares/modules/locale.conf
+---
+defaultTimezone: Asia/Jakarta
+EOF
+
+echo "📝 Menulis modules/bootloader.conf..."
+cat << 'EOF' > /etc/calamares/modules/bootloader.conf
+---
+installGRUB: true
+efiBootloader: grub
+EOF
+
+echo "📝 Menulis branding/bedillos/branding.desc..."
+cat << 'EOF' > /etc/calamares/branding/bedillos/branding.desc
+---
+name: bedillOS Installer
+productName: bedillOS
+version: 1.0
+shortVersion: "1.0"
+welcomeStyle: classic
+sidebarBackground: "#1a1a1a"
+EOF
+
+echo "🎯 Membuat shortcut desktop installer..."
+mkdir -p /etc/skel/Desktop
+cat << 'EOF' > /etc/skel/Desktop/install.desktop
+[Desktop Entry]
+Name=Install bedillOS
+Exec=sudo calamares
+Icon=system-installer
+Type=Application
+Categories=System;
+EOF
+chmod +x /etc/skel/Desktop/install.desktop
+
 ```
 
 
