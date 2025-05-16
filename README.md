@@ -83,7 +83,7 @@ deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe
 deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
 EOF
 
-apt install software-properti* && add-apt-repository ppa:maarten-baert/simplescreenrecorder
+apt install software-properti* sudo
 
 ```
 
@@ -91,7 +91,11 @@ apt install software-properti* && add-apt-repository ppa:maarten-baert/simplescr
 __8 - Memperbarui daftar paket dan menginstal beberapa paket dasar__
 ```
 sudo apt update
-apt-get install -y libterm-readline-gnu-perl systemd-sysv
+apt-get install -y libterm-readline-gnu-perl systemd-sysv thermald htop zip unzip rar unrar
+
+sudo apt-get install ca-certificates -y 
+
+add-apt-repository ppa:maarten-baert/simplescreenrecorder
 
 ```
 
@@ -111,7 +115,8 @@ ln -s /bin/true /sbin/initctl
 
 __11 - Melakukan upgrade sistem dan menginstal beberapa paket tambahan__
 ```
-apt install simplescreenrecorder dolphin
+apt update
+apt install simplescreenrecorder dolphin nemo
 apt-get -y upgrade
 apt-get install -y \
    sudo \
@@ -194,6 +199,8 @@ apt install screenfetch blueman bluetooth* pulseaudio* bluez blueman
 
 apt install adb build-essential autoconf libx11-dev libxext-dev libxrender-dev libxrandr-dev libxinerama-dev libxi-dev libxft-dev libgl1-mesa-dev libegl1-mesa-dev
 
+snap install opera
+
 
 ```
 __18 - Menghapus sesi GNOME yang tidak diinginkan__
@@ -212,7 +219,7 @@ apt install build-essential gdb lcov pkg-config libbz2-dev libffi-dev libgdbm-de
 
 add-apt-repository ppa:alexlarsson/flatpak
 
-add-apt-repository ppa:<ISI DENGAN FIREFOX UBUNTU 16>
+add-apt-repository ppa:mozillateam/ppa
 
 apt update
 
