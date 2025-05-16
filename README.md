@@ -159,7 +159,7 @@ sudo apt install -y git cmake qtbase5-dev qttools5-dev-tools \
     libudisks2-dev pkg-config gettext
 
 
-git clone --branch 3.2.x-stable https://github.com/calamares/calamares.git
+git clone --branch 2.4.x-stable https://github.com/calamares/calamares.git
 cd calamares
 
 apt install nano -y
@@ -169,98 +169,28 @@ sudo apt install -y qtcreator qtbase5-dev qt5-qmake
 mkdir build
 cd build
 
+sudo apt update
+sudo apt install libqt5svg5-dev
+sudo apt update
+sudo apt install extra-cmake-modules
+sudo apt update
+sudo apt install libkf5iconthemes-dev
 
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:kubuntu-ppa/backports
+sudo apt update
 
-cmake ..
-make -j$(nproc)
-sudo make install
+gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 2836CB0A8AC93F7A
+gpg --export 2836CB0A8AC93F7A | sudo apt-key add -
 
-echo "📦 Membuat struktur folder Calamares..."
-mkdir -p /etc/calamares/modules
-mkdir -p /etc/calamares/branding/bedillos
-
-echo "📝 Menulis settings.conf..."
-cat << 'EOF' > /etc/calamares/settings.conf
----
-sequence:
- - show:
-     - welcome
- - show:
-     - locale
- - show:
-     - keyboard
- - exec:
-     - partition
- - show:
-     - users
- - exec:
-     - summary
- - exec:
-     - install
- - exec:
-     - bootloader
- - show:
-     - finished
-
-branding: bedillos
-modules-search:
- - /etc/calamares/modules
-EOF
-
-echo "📝 Menulis modules/partition.conf..."
-cat << 'EOF' > /etc/calamares/modules/partition.conf
----
-partition-module: replace
-automated: false
-EOF
-
-echo "📝 Menulis modules/users.conf..."
-cat << 'EOF' > /etc/calamares/modules/users.conf
----
-defaultGroups:
- - audio
- - video
- - wheel
- - network
- - sudo
-sudoersGroup: sudo
-EOF
-
-echo "📝 Menulis modules/locale.conf..."
-cat << 'EOF' > /etc/calamares/modules/locale.conf
----
-defaultTimezone: Asia/Jakarta
-EOF
-
-echo "📝 Menulis modules/bootloader.conf..."
-cat << 'EOF' > /etc/calamares/modules/bootloader.conf
----
-installGRUB: true
-efiBootloader: grub
-EOF
-
-echo "📝 Menulis branding/bedillos/branding.desc..."
-cat << 'EOF' > /etc/calamares/branding/bedillos/branding.desc
----
-name: bedillOS Installer
-productName: bedillOS
-version: 1.0
-shortVersion: "1.0"
-welcomeStyle: classic
-sidebarBackground: "#1a1a1a"
-EOF
-
-echo "🎯 Membuat shortcut desktop installer..."
-mkdir -p /etc/skel/Desktop
-cat << 'EOF' > /etc/skel/Desktop/install.desktop
-[Desktop Entry]
-Name=Install bedillOS
-Exec=sudo calamares
-Icon=system-installer
-Type=Application
-Categories=System;
-EOF
-chmod +x /etc/skel/Desktop/install.desktop
+sudo apt update
+sudo apt install git cmake build-essential extra-cmake-modules \
+    qtbase5-dev qttools5-dev qttools5-dev-tools \
+    libkf5coreaddons-dev libkf5i18n-dev libkf5config-dev \
+    libkf5service-dev libkf5itemmodels-dev libkf5widgetsaddons-dev \
+    libkf5windowsystem-dev libkf5completion-dev libkf5notifications-dev \
+    libkf5crash-dev libkf5jobwidgets-dev libkf5iconthemes-dev \
+    libkf5solid-dev libkf5doctools-dev
 
 ```
 
@@ -285,7 +215,7 @@ apt-get install -y \
 ```
 
 
-__15 - Memulai tool "tasksel" untuk memilih dan menginstal lingkungan desktop (Lubuntu)__
+__15 - Memulai tool "tasksel" untuk memilih dan menginstal lingkungan desktop (Kubuntu)__
 ```
 tasksel
 
