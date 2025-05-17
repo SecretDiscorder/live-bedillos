@@ -159,9 +159,6 @@ sudo apt install -y git cmake qtbase5-dev qttools5-dev-tools \
     libudisks2-dev pkg-config gettext
 
 
-git clone --branch 2.4.x-stable https://github.com/calamares/calamares.git
-cd calamares
-
 apt install nano -y
 
 sudo apt install -y qtcreator qtbase5-dev qt5-qmake
@@ -228,7 +225,7 @@ tasksel
 __16 - Menginstal paket untuk LXDE dan lingkungan desktop ringan__
 
 ```
-apt-get install -y lxde-core openbox* lxpanel* pcmanfm lxsession* lxappearance* lxterminal lxrandr lxinput lximage-qt gpicview lightdm* xserver-xorg feh compton gnome-screenshot synaptic tasksel gedit network-manager network-manager-gnome ifupdown nmcli wicd net-tools inetutils-ping curl wget traceroute nmap dnsutils openssh-client openssh-server nano vim gedit pcmanfm thunar vlc mpv audacious ffmpeg firefox chromium-browser midori zip unzip tar gzip bzip2 xz-utils libreoffice evince catfish htop gparted gksu ufw rsync deja-dup
+apt-get install -y openbox* pcmanfm lxterminal lxrandr lxinput lximage-qt gpicview sddm xserver-xorg feh compton gnome-screenshot synaptic tasksel gedit network-manager network-manager-gnome ifupdown nmcli wicd net-tools inetutils-ping curl wget traceroute nmap dnsutils openssh-client openssh-server nano vim gedit pcmanfm thunar vlc mpv audacious ffmpeg firefox chromium-browser midori zip unzip tar gzip bzip2 xz-utils libreoffice evince catfish htop gparted gksu ufw rsync deja-dup
 
 ```
 
@@ -637,9 +634,9 @@ sudo xorriso \
 ```
 #!/bin/bash
 xorriso -as mkisofs \
-  -V "BedillOS_Live" \
+  -V "bedillos" \
   -J -R \
-  -isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin \
+  -isohybrid-mbr sblive/isolinux/ \
   -c isolinux/boot.cat \
   -b isolinux/isolinux.bin \
   -iso-level 3 \
