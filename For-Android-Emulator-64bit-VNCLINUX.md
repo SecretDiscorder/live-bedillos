@@ -41,12 +41,30 @@ chroot chroot /debootstrap/debootstrap --second-stage
 ## Tahap 2 - Persiapan Chroot
 
 ```bash
-mount --bind /dev chroot/dev
-mount --bind /run chroot/run
-chroot chroot
+sudo mount --bind /dev $HOME/live-bedillos/chroot/dev
+sudo mount --bind /run $HOME/live-bedillos/chroot/run
 ```
 
-## Tahap 3 - Setup Sistem Dasar
+## Tahap 3 - Masuk ke lingkungan chroot untuk mulai mengkonfigurasi sistem
+
+```bash
+sudo chroot $HOME/live-bedillos/chroot
+```
+## Tahap 4 - Memasang beberapa sistem file virtual yang diperlukan untuk menjalankan sistem Linux di dalam chroot
+
+```bash
+mount none -t proc /proc
+mount none -t sysfs /sys
+mount none -t devpts /dev/pts
+```
+## Tahap 5 - Mengatur variabel lingkungan
+
+```bash
+export HOME=/root
+export LC_ALL=C
+```
+
+## Tahap 6 - Setup Sistem Dasar
 
 ### Tambahkan Firefox dari PPA jika versi default sudah kadaluarsa
 
@@ -102,7 +120,7 @@ passwd bedill
 usermod -aG sudo,adm,audio,video,netdev bedill
 ```
 
-## Tahap 4 - Bersihkan dan Keluar dari Chroot
+## Tahap 7 - Bersihkan dan Keluar dari Chroot
 
 ```bash
 apt clean
@@ -115,7 +133,7 @@ umount chroot/dev
 umount chroot/run
 ```
 
-## Tahap 5 - Pembuatan ISO
+## Tahap 8 - Pembuatan ISO
 
 ### Struktur Image
 
@@ -164,7 +182,7 @@ mmd -i efiboot.img efi efi/boot
 mcopy -i efiboot.img /usr/lib/grub/arm64-efi/bootaa64.efi ::efi/boot/bootaa64.efi
 ```
 
-## Tahap 7 - Buat ISO (Kompatibel untuk emulasi Android)
+## Tahap 9 - Buat ISO (Kompatibel untuk emulasi Android)
 
 ```bash
 cd ../
