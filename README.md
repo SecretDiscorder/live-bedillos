@@ -30,7 +30,7 @@ Dirancang sebagai cadangan ringan, stabil, dan mudah digunakan untuk:
 
 ## 📺 Demo Video
 
-🎥 [Playlist YouTube Lengkap](https://youtube.com/playlist?list=PL1V4l3qbHz_naXe5wc6Uqr6FOgwIiNnTQ&si=VHIAzwUJp7g2z89p)
+🎥 [Playlist YouTube Lengkap]([https://youtube.com/playlist?list=PL1V4l3qbHz_naXe5wc6Uqr6FOgwIiNnTQ&si=VHIAzwUJp7g2z89p](https://www.youtube.com/watch?v=rPqUIWbc0Nw&list=PL1V4l3qbHz_lqC48NluNG3bT9dCx4fVtj&ab_channel=SecretDiscorder)
 
 ---
 
