@@ -45,7 +45,7 @@ Dirancang sebagai cadangan ringan, stabil, dan mudah digunakan untuk:
 
 ## 👤 Developer
 
-![Owner Avatar](https://avatars.githubusercontent.com/u/00000000?s=100) <!-- Ganti dengan avatar pengguna -->
+![Owner Avatar](https://avatars.githubusercontent.com/u/139457966?v=4&size=100) <!-- Ganti dengan avatar pengguna -->
 
 **Made with ❤️ by [SecretDiscorder](https://github.com/SecretDiscorder)**  
 🛠️ Coding ringan. 🌐 Internet minimal. 🎓 Edukasi maksimal.
