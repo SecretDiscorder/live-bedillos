@@ -48,6 +48,29 @@ chroot chroot
 
 ## Tahap 3 - Setup Sistem Dasar
 
+### Tambahkan Firefox dari PPA jika versi default sudah kadaluarsa
+
+```bash
+add-apt-repository ppa:mozillateam/ppa
+apt update
+apt install -y firefox
+
+# Pastikan prioritas PPA lebih tinggi dari default
+cat <<EOF > /etc/apt/preferences.d/mozillateam
+Package: *
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1001
+EOF
+
+# Tambahkan GPG key untuk PPA jika diperlukan
+apt install -y gnupg
+keyserver=hkp://keyserver.ubuntu.com:80
+gpg --keyserver "$keyserver" --recv-keys 3B4FE6ACC0B21F32
+
+# Tambahkan ke apt trusted.gpg.d
+gpg --export 3B4FE6ACC0B21F32 | tee /etc/apt/trusted.gpg.d/mozillateam.gpg > /dev/null
+```
+
 ```bash
 mount -t proc none /proc
 mount -t sysfs none /sys
@@ -64,7 +87,7 @@ deb http://ports.ubuntu.com/ jammy-updates main universe multiverse restricted
 deb http://ports.ubuntu.com/ jammy-security main universe multiverse restricted
 EOF
 
-apt update && apt install -y sudo nano systemd-sysv dbus htop network-manager net-tools wireless-tools locales openssh-server curl unzip zip xfce4-terminal lightdm
+apt update && apt install -y sudo nano systemd-sysv dbus htop network-manager net-tools wireless-tools locales openssh-server curl unzip zip xfce4-terminal lightdm firefox
 
 # Install LXDE desktop
 apt install -y lxde-core lxappearance pcmanfm openbox lxdm xserver-xorg
@@ -181,17 +204,30 @@ sudo dd if=../bedillos-arm64.iso of=/dev/sdX status=progress
 
      ```bash
      qemu-system-aarch64 \
-       -m 2048 \
+       -m 1400 \
        -cpu cortex-a72 \
        -M virt \
        -kernel vmlinuz \
        -initrd initrd.img \
        -append "root=/dev/vda console=ttyAMA0" \
-       -drive file=filesystem.squashfs,format=raw,if=virtio \
-       -nographic
+       -drive file=filesystem.img,format=raw,if=virtio \
+       -device virtio-keyboard-device \
+       -device virtio-mouse-device \
+       -netdev user,id=mynet0 \
+       -device virtio-net-device,netdev=mynet0 \
+       -vnc :1
      ```
-   * Atau convert ISO menjadi `.img` untuk digunakan langsung
-3. **Gunakan keyboard/mouse eksternal** untuk pengalaman grafis
+   * Gunakan aplikasi **VNC Viewer** untuk akses grafis:
+
+     * Host: `localhost`
+     * Port: `5901`
+3. Setelah login, buka LXTerminal dan jalankan:
+
+   ```bash
+   firefox
+   ```
+
+   untuk mengakses WhatsApp Web.
 
 ---
 
@@ -202,4 +238,4 @@ sudo dd if=../bedillos-arm64.iso of=/dev/sdX status=progress
 
 ---
 
-**Dikustomisasi khusus untuk Fedora + target HP Android via emulator (Linux Machine)**
+**Dikustomisasi khusus untuk Fedora + target HP Android via emulator (Linux Machine / Termux) + kebutuhan Web WhatsApp (Firefox)**
